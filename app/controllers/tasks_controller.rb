@@ -1,10 +1,10 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
+  before_action :get_users, only: [:new, :edit, :create  ]
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = Task.order("created_at desc").all
   end
 
   # GET /tasks/1
@@ -15,6 +15,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
+   @users=User.order("lastname").map {|user| [user.name + " "+ user.lastname, user.id] }
   end
 
   # GET /tasks/1/edit
@@ -70,5 +71,9 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:name, :status, :user_id)
+    end
+    
+    def get_users
+      @users=User.order("lastname").map {|user| [user.name + " "+ user.lastname, user.id] }
     end
 end
