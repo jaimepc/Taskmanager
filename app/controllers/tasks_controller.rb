@@ -1,10 +1,15 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :get_users, only: [:new, :edit, :create  ]
+  before_action :get_users, only: [:new, :edit, :create ]
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.order("created_at desc").all
+    @tasks = Task.order("created_at desc") 
+    @users = User.order("lastname") #{|user| [user.name + " "+ user.lastname, user.id] }
+    
+    @tareas = Task.select("tasks.name, tasks.status, users.name").joins(:users).order("tasks.created_at desc") #{|tarea| [tasks.name,  tasks.status, users.name] }
+    #@tareas = Task.select("tasks.name, tasks.status, User.name").joins(:User).order("tasks.created_at DESC").map
+ 
   end
 
   # GET /tasks/1
@@ -15,7 +20,7 @@ class TasksController < ApplicationController
   # GET /tasks/new
   def new
     @task = Task.new
-   @users=User.order("lastname").map {|user| [user.name + " "+ user.lastname, user.id] }
+    @users= User.order("lastname").map {|user| [user.name + " "+ user.lastname, user.id] }
   end
 
   # GET /tasks/1/edit
