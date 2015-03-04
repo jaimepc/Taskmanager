@@ -17,7 +17,7 @@
       <ul class="title-area">
         <li class="name">
           <h1>
-            <%= link_to 'Inicio', root_path %>
+            <%= link_to 'TaskManager', root_path %>
           </h1>
         </li>
         
@@ -29,11 +29,12 @@
           <% if user_signed_in? %>
             <ul class="left">
               <li>
-                <%= link_to 'Nueva Tarea', new_task_path %>
+                <%= link_to 'New Task', new_task_path %>
               </li>
                <li>
-                <%= link_to 'Listado de tareas', tasks_path %>
-              </li>
+                <%= link_to 'List Task', tasks_path %>
+             
+              
             </ul>
         <% end %>
         <ul class="right">
@@ -47,7 +48,7 @@
           
           <% else %>
           <li class="active">
-            <%= link_to 'Registrese', new_user_registration_path %>
+            <%= link_to 'Sign Up', new_user_registration_path %>
            </li>
            <li>
             <%= link_to 'Sign In', user_session_path %>
