@@ -17,14 +17,25 @@
       <ul class="title-area">
         <li class="name">
           <h1>
-            <%= link_to 'TaskManager', root_path %>
+            <%= link_to 'Inicio', root_path %>
           </h1>
         </li>
+        
          <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
         <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
       </ul>
     
       <section class="top-bar-section">
+          <% if user_signed_in? %>
+            <ul class="left">
+              <li>
+                <%= link_to 'Nueva Tarea', new_task_path %>
+              </li>
+               <li>
+                <%= link_to 'Listado de tareas', tasks_path %>
+              </li>
+            </ul>
+        <% end %>
         <ul class="right">
           <% if user_signed_in? %>
           <li class="active">
@@ -33,9 +44,10 @@
            <li>
             <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
           </li>
+          
           <% else %>
           <li class="active">
-            <%= link_to 'Sign Up', new_user_registration_path %>
+            <%= link_to 'Registrese', new_user_registration_path %>
            </li>
            <li>
             <%= link_to 'Sign In', user_session_path %>
