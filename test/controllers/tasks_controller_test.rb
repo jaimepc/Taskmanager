@@ -24,12 +24,14 @@ class TasksControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  #test "should get new" do
-  #  sign_in users(:one)
-  #  get :new
-  #  assert_response :success
-  #end
-
+  test "No deberia crear una tarea sin autenticarse" do
+    assert_difference('Task.count') do
+      post :create, task: { name: @task.name, status: @task.status, user_id: @task.user_id }
+    end
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
+  end
+  
   test "should create task" do
     sign_in users(:one)
     assert_difference('Task.count') do
