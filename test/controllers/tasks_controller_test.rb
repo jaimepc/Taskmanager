@@ -25,7 +25,7 @@ class TasksControllerTest < ActionController::TestCase
   end
   
   test "No deberia crear una tarea sin autenticarse" do
-    assert_difference('Task.count') do
+    assert_no_difference('Task.count') do
       post :create, task: { name: @task.name, status: @task.status, user_id: @task.user_id }
     end
     assert_response :redirect
