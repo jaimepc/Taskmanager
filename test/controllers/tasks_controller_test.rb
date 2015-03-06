@@ -53,18 +53,39 @@ class TasksControllerTest < ActionController::TestCase
     assert_response :success
   end
   
-  test "should get edit" do
+  test "No deberia editar sin autenticarse" do
+    get :edit, id: @task
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
+  end
+  
+  test "should get deit" do
     sign_in users(:one)
     get :edit, id: @task
     assert_response :success
   end
 
+  test "No deberia actualizar la tarea sin autenticarse" do
+    patch :update, id: @task, task: { name: @task.name, status: @task.status, user_id: @task.user_id }
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
+  end
+  
   test "should update task" do
     sign_in users(:one)
     patch :update, id: @task, task: { name: @task.name, status: @task.status, user_id: @task.user_id }
     assert_redirected_to task_path(assigns(:task))
   end
 
+  test "No deberia eliminar la tarea sin autenticarse" do
+    assert_no_difference('Task.count', -1) do
+      delete :destroy, id: @task
+    end
+
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
+  end
+  
   test "should destroy task" do
     sign_in users(:one)
     assert_difference('Task.count', -1) do
