@@ -18,6 +18,12 @@ class TasksControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_path
   end
 
+  test "Deberia agregar una nueva tarea" do
+    sign_in users(:one)
+    get :new
+    assert_response :success
+  end
+  
   #test "should get new" do
   #  sign_in users(:one)
   #  get :new
