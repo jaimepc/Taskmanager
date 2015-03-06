@@ -11,7 +11,7 @@
 
 <p>
   <strong>User:</strong>
-  <%= @task.user_id %>
+  <%= @task.user.name %>
 </p>
 
 <%= link_to 'Edit', edit_task_path(@task),class: 'button'  %> |

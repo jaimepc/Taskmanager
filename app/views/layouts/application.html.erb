@@ -26,51 +26,45 @@
       </ul>
     
       <section class="top-bar-section">
-          <% if user_signed_in? %>
-            <ul class="left">
-              <li>
-                <%= link_to 'New Task', new_task_path %>
-              </li>
-               <li>
-                <%= link_to 'List Task', tasks_path %>
-             
-              
-            </ul>
+        <% if user_signed_in? %>
+          <ul class="left">
+            <li>
+              <%= link_to 'New Task', new_task_path %>
+            </li>
+            <li>
+              <%= link_to 'List Task', tasks_path %>
+            </li>
+          </ul>
         <% end %>
         <ul class="right">
           <% if user_signed_in? %>
-          <li class="active">
-            <%= link_to current_user.name, edit_user_registration_path %>
-          </li>
-           <li>
-            <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
-          </li>
-          
+            <li class="active">
+              <%= link_to current_user.name, edit_user_registration_path %>
+            </li>
+            <li>
+              <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+            </li>
           <% else %>
-          <li class="active">
-            <%= link_to 'Sign Up', new_user_registration_path %>
-           </li>
-           <li>
-            <%= link_to 'Sign In', user_session_path %>
-           </li>
+            <li class="active">
+              <%= link_to 'Sign Up', new_user_registration_path %>
+             </li>
+             <li>
+               <%= link_to 'Sign In', user_session_path %>
+             </li>
           <% end %>
-         </ul>
+        </ul>
       </section>
     </nav>
     
-   
-    <p class="alert"><%= flash.alert %></p>
-    
     <div class="row">
       <div class="columns large-12">
-        <br>
+        <br/>
         <% flash.each do |type, message| %>
-        <div data-alert class="alert-box radius <%= flass_class type %>">
-          <%= message %>
-             <a href="#" class="close">&times;</a>
-        </div>
+          <div data-alert class="alert-box radius <%= flass_class type %>">
+            <%= message %>
+            <a href="#" class="close">&times;</a>
+          </div>
         <% end %>
-        
         <%= yield %>
       </div>
     </div>
