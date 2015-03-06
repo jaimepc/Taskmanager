@@ -41,12 +41,18 @@ class TasksControllerTest < ActionController::TestCase
     assert_redirected_to task_path(assigns(:task))
   end
 
+  test "No deberia mostrar la tarea sin autenticarse" do
+    get :show, id: @task
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
+  end
+
   test "should show task" do
     sign_in users(:one)
     get :show, id: @task
     assert_response :success
   end
-
+  
   test "should get edit" do
     sign_in users(:one)
     get :edit, id: @task
